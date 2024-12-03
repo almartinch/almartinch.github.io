@@ -1,3 +1,28 @@
+html {
+    background: linear-gradient(to left, #ffeb99, #ffe066);
+}
+table {
+    border-collapse: collapse;
+    border: 2px solid black;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+caption {
+    padding: 10px;
+    caption-side: bottom;
+}
+
+th,
+td {
+padding: 10px;
+border: 1px solid black;
+}
+
+footer {
+    text-align: center;
+}
+
 a[href^='mailto']::before {
     content: '📧 ';
 }
