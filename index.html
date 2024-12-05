@@ -13,9 +13,64 @@
 
             gtag('config', 'G-GV9N61X8JR');
         </script>
+        <script>
+            // const DEFAULT_GREETING = 'welcome'
+            const KEY_NAME_IP = 'almartinch-user-ip';
+            // const KEY_NAME_COUNTRY = 'almartinch-user-country';
+            
+            async function getCookie(key) {
+                if(cookieStore) {
+                    return await cookieStore.get(key);
+                }
+                // TODO: Other browser support
+            }
+            async function setCookie(key, value) {
+                if (cookieStore) {
+                    await cookieStore.set(key, value);
+                }
+                // TODO: Other browser support
+            }
+
+            getCookie(KEY_NAME_IP).then(async data => {
+                if (!data) {
+                    const result = await getInfo();
+                    if (result) {
+                        displayInfo(result.query);
+                        setCookie(KEY_NAME_IP, result.query);
+                    }
+                    
+                    return;
+                }
+
+                displayInfo(data.value)
+            });
+
+            async function getInfo() {
+                const url = "http://ip-api.com/json";
+                try {
+                    const response = await fetch(url);
+                    if (!response.ok) {
+                        throw new Error(`Response status: ${response.status}`);
+                    }
+
+                    const json = await response.json();
+                    
+                    return json;
+                } catch (error) {
+                    console.log(error.message)
+                }
+            }
+            
+            function displayInfo(ip) {
+                document.getElementById("user-custom-greeting").textContent = `welcome ${ip}!`;
+            }
+        </script>
+
         <link href="styles/style.css" rel="stylesheet" type="text/css" />
     </head>
     <body>
+        <h1>almartin.ch</h1>
+        <h2 id="user-custom-greeting"> </h2>
         <p>
             <table>
                 <caption>
