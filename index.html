@@ -10,11 +10,12 @@
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
-
+            
             gtag('config', 'G-GV9N61X8JR');
+            console.log('Google Analytics run');
         </script>
+        <!-- almartin.ch site logic-->
         <script>
-            // const DEFAULT_GREETING = 'welcome'
             const KEY_NAME_IP = 'almartinch-user-ip';
             // const KEY_NAME_COUNTRY = 'almartinch-user-country';
             
@@ -31,22 +32,8 @@
                 // TODO: Other browser support
             }
 
-            getCookie(KEY_NAME_IP).then(async data => {
-                if (!data) {
-                    const result = await getInfo();
-                    if (result) {
-                        displayInfo(result.query);
-                        setCookie(KEY_NAME_IP, result.query);
-                    }
-                    
-                    return;
-                }
-
-                displayInfo(data.value)
-            });
-
-            async function getInfo() {
-                const url = "http://ip-api.com/json";
+            async function getIpInformation() {
+                const url = "https://ipinfo.io/json";
                 try {
                     const response = await fetch(url);
                     if (!response.ok) {
@@ -57,20 +44,39 @@
                     
                     return json;
                 } catch (error) {
-                    console.log(error.message)
+                    console.log(error.message);
                 }
             }
             
             function displayInfo(ip) {
-                document.getElementById("user-custom-greeting").textContent = `welcome ${ip}!`;
+                document.getElementById("user-custom-greeting").textContent = `welcome ${ip}`;
             }
+
+            getCookie(KEY_NAME_IP)
+                .then(async data => {
+                    if (!data) {
+                        // Fetch data
+                        const ipInformation = await getIpInformation();
+                        if (ipInformation) {
+                            console.log(ipInformation);
+                            displayInfo(ipInformation.ip);
+                            setCookie(KEY_NAME_IP, ipInformation.ip);
+                        }
+                        
+                        return;
+                    }
+                    // Grab stored data
+                    displayInfo(data.value);
+                });
+
+            console.log('almartin.ch run');
         </script>
 
         <link href="styles/style.css" rel="stylesheet" type="text/css" />
     </head>
     <body>
         <h1>almartin.ch</h1>
-        <h2 id="user-custom-greeting"> </h2>
+        <h2 id="user-custom-greeting">welcome</h2>
         <p>
             <table>
                 <caption>
