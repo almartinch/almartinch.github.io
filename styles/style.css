@@ -4,8 +4,7 @@ html {
 table {
     border-collapse: collapse;
     border: 2px solid black;
-    margin-right: auto;
-    margin-left: auto;
+    margin: auto;
 }
 
 caption {
