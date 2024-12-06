@@ -1,4 +1,36 @@
 const COOKIE_KEY_NAME_IP = 'almartinch-user-ip';
+const VERSES = [
+    "SUFFERING IS OPT",
+    "LIFE IS SUFFERING",
+    "YOU SUFFER BUT WHY?",
+    "NO MORE NOISE"
+];
+
+function randomizeVerse() {
+    let verse = VERSES[2].replace(/\s+/g,'');
+    const tableElement = document.getElementById("table");
+    let newTBody = document.createElement("tbody");
+    generateTable(newTBody, verse);
+    tableElement.replaceChild(newTBody, tableElement.tBodies[0]);
+    
+    const buttonElement = document.getElementById("button");
+    buttonElement.disabled = true;
+    buttonElement.innerHTML = "under construction";
+
+}
+
+function generateTable(tBody, verse) {
+    let verseIndex = 0;
+    for (let i = 0; i < 4; i++) {
+        let row = tBody.insertRow();
+        for (let j = 0; j < 4; j++) {
+            let cell = row.insertCell();
+            let text = document.createTextNode(verse.charAt(verseIndex));
+            cell.appendChild(text);
+            verseIndex++;
+        }
+    }
+}
 
 function renderIp(ip) {
     if(ip) {
