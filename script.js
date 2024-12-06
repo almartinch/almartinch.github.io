@@ -34,7 +34,7 @@ function generateTable(tBody, verse) {
 
 function renderGreetingText(ip, returningUser = false) {
     const element = document.querySelector(".user-greeting-text");
-    const content = `🪪 welcome${returningUser? " back" : ""}! your ${returningUser? " cookie stored " : ""}public IP address is ${ip}`;
+    const content = `🪪 welcome${returningUser? " back" : ""}! your public IP address${returningUser? " stored in our books " : " "}is: ${ip}`;
     element.classList.remove("fade");
     setTimeout(() => {
         requestAnimationFrame(() => {
@@ -58,7 +58,7 @@ async function setCookie(key, value) {
         await cookieStore.set({
             name: key,
             value: value,
-            expires: new Date(new Date().getTime() + 5*60000) // 5 min default
+            expires: new Date(new Date().getTime() + 24*60*60000) // One day in ms
           });
     }
 }
@@ -93,13 +93,18 @@ async function displayUserInformation(reset = false) {
     if (!ipCookie) {
         const ipInformationJson = await getIpInformation();
         if (ipInformationJson) {
+            console.log("User information retrieved 🕵");
             console.log(ipInformationJson);
             renderGreetingText(ipInformationJson.ip);
+            console.log("Saving cookie 🍪")
             setCookie(COOKIE_KEY_NAME_IP, ipInformationJson.ip);
         }
         
     } else {
-        renderGreetingText(ipCookie.value, true);
+        if(ipCookie.value) {
+            console.log("Cookie retrieved 🍪")
+            renderGreetingText(ipCookie.value, true);
+        }
     }
     const buttonElement = document.getElementById("button-refresh");
     buttonElement.disabled = false;
@@ -107,5 +112,5 @@ async function displayUserInformation(reset = false) {
 
 document.addEventListener("DOMContentLoaded", async () => {
     await displayUserInformation();
-    console.log('almartin.ch run');
+    console.log('almartin.ch run ✅');
 })
