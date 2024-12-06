@@ -1,4 +1,4 @@
-const COOKIE_KEY_NAME_IP = 'almartinch-user-ip';
+// Verses
 const VERSES = [
     "SUFFERING IS OPT",
     "LIFE IS SUFFERING",
@@ -31,23 +31,8 @@ function generateTable(tBody, verse) {
         }
     }
 }
-
-function renderGreetingText(ip, returningUser = false) {
-    const element = document.querySelector(".user-greeting-text");
-    const content = `🪪 welcome${returningUser? " back" : ""}! your public IP address${returningUser? " stored in our books " : " "}is: ${ip}`;
-    element.classList.remove("fade");
-    setTimeout(() => {
-        requestAnimationFrame(() => {
-            element.innerHTML = content;
-            element.classList.add("fade");
-        });
-    }, 225);
-}
-
-async function refreshGreetingText() {
-    await displayUserInformation(true);
-}
-
+// User information
+const COOKIE_KEY_NAME_IP = 'almartinch-user-ip';
 async function getCookie(key) {
     if(cookieStore) {
         return await cookieStore.get(key);
@@ -66,6 +51,22 @@ async function deleteCookie(key) {
     if (cookieStore) {
         await cookieStore.delete(key);
     }
+}
+
+function renderGreetingText(ip, returningUser = false) {
+    const element = document.querySelector(".user-greeting-text");
+    const content = `🪪 welcome${returningUser? " back" : ""}! your public IP address${returningUser? " stored in our books " : " "}is: ${ip}`;
+    element.classList.remove("fade");
+    setTimeout(() => {
+        requestAnimationFrame(() => {
+            element.innerHTML = content;
+            element.classList.add("fade");
+        });
+    }, 225);
+}
+
+async function refreshGreetingText() {
+    await displayUserInformation(true);
 }
 
 async function getIpInformation() {

@@ -1,8 +1,9 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en-US">
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="color-scheme" content="light dark"/>
         <title>almartin.ch</title>
         <!-- Google tag (gtag.js) for analytics-->
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-GV9N61X8JR"></script>
@@ -15,15 +16,38 @@
             console.log('Google Analytics run ✅');
             </script>
         <!-- almartin.ch site logic-->
-        <script src="script.js"></script>
-        <link href="style.css" rel="stylesheet" type="text/css" />
+        <script src="js/script.js"></script>
+        <!-- Swag -->
+        <link href="css/custom-style.css" rel="stylesheet" type="text/css" />
+        <link href="css/pico.purple.css" rel="stylesheet" type="text/css" />
+        <link rel="apple-touch-icon" sizes="180x180" href="favicon_io/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="favicon_io/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="favicon_io/favicon-16x16.png">
+        <link rel="manifest" href="favicon_io/site.webmanifest">
     </head>
-    <div id="app">
-        <body>
-            <h1>almartin.ch - personal website</h3>
-            
-            <section class="first-section">
-                <h3 class="text fade user-greeting-text">🔎 searching you...</h2>
+    <body>
+        <header class="container">
+            <h1>almartin.ch</h3>
+            <p>personal website</p>
+            <nav>
+                <ul>
+                  <li>
+                    <details class="dropdown">
+                      <summary role="button" class="secondary">Theme</summary>
+                      <ul>
+                        <li><a href="#" data-theme-switcher="auto">Auto</a></li>
+                        <li><a href="#" data-theme-switcher="light">Light</a></li>
+                        <li><a href="#" data-theme-switcher="dark">Dark</a></li>
+                      </ul>
+                    </details>
+                  </li>
+                </ul>
+              </nav>
+        </header>
+        
+        <main class="container">
+            <section>
+                <h2 class="text fade user-greeting-text">🔎 searching you...</h2>
                 <button id="button-refresh" onclick="refreshGreetingText()" disabled>
                     refresh
                 </button>
@@ -33,58 +57,56 @@
                     </small>
                 </p>
             </section>
-            
             <section>
-                <p>
-                    <table id="table">
-                        <caption>
-                            verses in sixteen characters or less
-                        </caption>
-                        <tbody>
-                            <tr>
-                                <td>L</td>
-                                <td>I</td>
-                                <td>F</td>
-                                <td>E</td>
-                            </tr>
-                            <tr>
-                                <td>I</td>
-                                <td>S</td>
-                                <td></td>
-                                <td>S</td>
-                            </tr>
-                            <tr>
-                                <td>U</td>
-                                <td>F</td>
-                                <td>F</td>
-                                <td>E</td>
-                            </tr>
-                            <tr>
-                                <td>R</td>
-                                <td>I</td>
-                                <td>N</td>
-                                <td>G</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <button id="button-verses" onclick="randomizeVerse()">
-                        next verse
-                    </button>
-                </p>
+                <table id="table">
+                    <caption>
+                        verses in sixteen characters or less
+                    </caption>
+                    <tbody>
+                        <tr>
+                            <td>L</td>
+                            <td>I</td>
+                            <td>F</td>
+                            <td>E</td>
+                        </tr>
+                        <tr>
+                            <td>I</td>
+                            <td>S</td>
+                            <td></td>
+                            <td>S</td>
+                        </tr>
+                        <tr>
+                            <td>U</td>
+                            <td>F</td>
+                            <td>F</td>
+                            <td>E</td>
+                        </tr>
+                        <tr>
+                            <td>R</td>
+                            <td>I</td>
+                            <td>N</td>
+                            <td>G</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <button id="button-verses" onclick="randomizeVerse()">
+                    next verse
+                </button>
+            </section>
+        </main>
+        
+        <footer class="container">
+            <p><a href="https://github.com/almartin1911/almartin.ch">source code</a></p>
+            <address>
+                <a href="mailto:amcallejasherrera@gmail.com">amcallejasherrera@gmail.com</a><br />
+                <a href="tg:almartinch">@almartinch</a>
+            </address>
+            <small>
+                <p>copyright © 2024 (ál)varo (martín) (c)allejas (h)errera<br />all rights reserved</p>
+            </small>
+        </footer>
 
-            </section>
-            <section>
-                <footer>
-                    <p><a href="https://github.com/almartin1911/almartin.ch">source code</a></p>
-                    <address>
-                        <a href="mailto:amcallejasherrera@gmail.com">amcallejasherrera@gmail.com</a><br />
-                        <a href="tg:almartinch">@almartinch</a>
-                    </address>
-                    <small>
-                        <p>copyright © 2024 (ál)varo (martín) (c)allejas (h)errera<br />all rights reserved</p>
-                    </small>
-                </footer>
-            </section>
-        </body>
-        </div>
+        <!-- Minimal theme switcher -->
+        <script src="js/minimal-theme-switcher.js"></script>
+    </body>
 </html>
