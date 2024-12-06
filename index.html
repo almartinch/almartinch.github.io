@@ -4,7 +4,7 @@
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>almartin.ch</title>
-        <!-- Google tag (gtag.js) -->
+        <!-- Google tag (gtag.js) for analytics-->
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-GV9N61X8JR"></script>
         <script>
             window.dataLayer = window.dataLayer || [];
@@ -15,71 +15,13 @@
             console.log('Google Analytics run');
             </script>
         <!-- almartin.ch site logic-->
-        <script>
-            const COOKIE_KEY_NAME_IP = 'almartinch-user-ip';
-            
-            function renderGreeting(ip) {
-                document.getElementById("user-custom-greeting").textContent = `welcome ${ip}`;
-            }
-
-            async function getCookie(key) {
-                if(cookieStore) {
-                    return await cookieStore.get(key);
-                }
-            }
-            async function setCookie(key, value) {
-                if (cookieStore) {
-                    await cookieStore.set(key, value);
-                }
-            }
-
-            async function getIpInformation() {
-                const url = "https://ipinfo.io/json";
-                try {
-                    const response = await fetch(url);
-                    if (!response.ok) {
-                        throw new Error(`Response status: ${response.status}`);
-                    }
-
-                    const json = await response.json();
-                    
-                    return json;
-                } catch (error) {
-                    console.log(error.message);
-                }
-            }
-
-            async function displayUserInformation() {
-                let ip;
-
-                const ipCookie = await getCookie(COOKIE_KEY_NAME_IP);
-                if(ipCookie) {
-                    ip = ipCookie.value;
-                }
-
-                const ipInformationJson = await getIpInformation();
-                if (ipInformationJson) {
-                    console.log(ipInformationJson);
-                    const ipIsDifferent = ipInformationJson.ip != ip;
-                    if (ipIsDifferent) {
-                        ip = ipInformationJson.ip;
-                        console.log('New or updated ip.');
-                        setCookie(COOKIE_KEY_NAME_IP, ip);
-                    }
-                }
-
-                renderGreeting(ip);
-            }
-
-            displayUserInformation();
-            console.log('almartin.ch run');
-        </script>
-
-        <link href="styles/style.css" rel="stylesheet" type="text/css" />
+        <script src="script.js"></script>
+        <link href="style.css" rel="stylesheet" type="text/css" />
     </head>
     <body>
-        <h1>almartin.ch</h1>
-        <h2 id="user-custom-greeting">welcome</h2>
+        <h1>almartin.ch - personal website</h1>
+        <h2>welcome</h2>
+        <h3 id="user-ip">🔎 searching you...</h3>
         <p>
             <table>
                 <caption>
