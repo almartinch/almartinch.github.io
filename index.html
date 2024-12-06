@@ -13,23 +13,24 @@
             
             gtag('config', 'G-GV9N61X8JR');
             console.log('Google Analytics run');
-        </script>
+            </script>
         <!-- almartin.ch site logic-->
         <script>
-            const KEY_NAME_IP = 'almartinch-user-ip';
-            // const KEY_NAME_COUNTRY = 'almartinch-user-country';
+            const COOKIE_KEY_NAME_IP = 'almartinch-user-ip';
             
+            function renderGreeting(ip) {
+                document.getElementById("user-custom-greeting").textContent = `welcome ${ip}`;
+            }
+
             async function getCookie(key) {
                 if(cookieStore) {
                     return await cookieStore.get(key);
                 }
-                // TODO: Other browser support
             }
             async function setCookie(key, value) {
                 if (cookieStore) {
                     await cookieStore.set(key, value);
                 }
-                // TODO: Other browser support
             }
 
             async function getIpInformation() {
@@ -47,28 +48,30 @@
                     console.log(error.message);
                 }
             }
-            
-            function displayInfo(ip) {
-                document.getElementById("user-custom-greeting").textContent = `welcome ${ip}`;
+
+            async function displayUserInformation() {
+                let ip;
+
+                const ipCookie = await getCookie(COOKIE_KEY_NAME_IP);
+                if(ipCookie) {
+                    ip = ipCookie.value;
+                }
+
+                const ipInformationJson = await getIpInformation();
+                if (ipInformationJson) {
+                    console.log(ipInformationJson);
+                    const ipIsDifferent = ipInformationJson.ip != ip;
+                    if (ipIsDifferent) {
+                        ip = ipInformationJson.ip;
+                        console.log('New or updated ip.');
+                        setCookie(COOKIE_KEY_NAME_IP, ip);
+                    }
+                }
+
+                renderGreeting(ip);
             }
 
-            getCookie(KEY_NAME_IP)
-                .then(async data => {
-                    if (!data) {
-                        // Fetch data
-                        const ipInformation = await getIpInformation();
-                        if (ipInformation) {
-                            console.log(ipInformation);
-                            displayInfo(ipInformation.ip);
-                            setCookie(KEY_NAME_IP, ipInformation.ip);
-                        }
-                        
-                        return;
-                    }
-                    // Grab stored data
-                    displayInfo(data.value);
-                });
-
+            displayUserInformation();
             console.log('almartin.ch run');
         </script>
 
@@ -84,28 +87,28 @@
                 </caption>
                 <tbody>
                     <tr>
-                        <td>L</td>
-                        <td>I</td>
-                        <td>F</td>
-                        <td>E</td>
-                    </tr>
-                    <tr>
-                        <td>I</td>
                         <td>S</td>
-                        <td> </td>
-                        <td>S</td>
-                    </tr>
-                    <tr>
                         <td>U</td>
                         <td>F</td>
                         <td>F</td>
-                        <td>E</td>
                     </tr>
                     <tr>
+                        <td>E</td>
                         <td>R</td>
                         <td>I</td>
                         <td>N</td>
+                    </tr>
+                    <tr>
                         <td>G</td>
+                        <td></td>
+                        <td>I</td>
+                        <td>S</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>O</td>
+                        <td>P</td>
+                        <td>T</td>
                     </tr>
                 </tbody>
             </table>
