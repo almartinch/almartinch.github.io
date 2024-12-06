@@ -50,7 +50,7 @@ async function setCookie(key, value) {
 }
 
 async function getIpInformation() {
-    const url = "https://ipinfo.io/json";
+    const url = "https://ipinfo.io/json?token=9dd4022236c442"; // 50k per month free
     try {
         const response = await fetch(url);
         if (!response.ok) {
