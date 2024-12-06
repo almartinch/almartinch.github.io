@@ -13,7 +13,7 @@ function randomizeVerse() {
     generateTable(newTBody, verse);
     tableElement.replaceChild(newTBody, tableElement.tBodies[0]);
     
-    const buttonElement = document.getElementById("button");
+    const buttonElement = document.getElementById("button-verses");
     buttonElement.disabled = true;
     buttonElement.innerHTML = "under construction";
 
@@ -32,10 +32,20 @@ function generateTable(tBody, verse) {
     }
 }
 
-function renderIp(ip) {
-    if(ip) {
-        document.getElementById("user-ip").textContent = `🪪 your address is ${ip}`;
-    }
+function renderGreetingText(ip, returningUser = false) {
+    const element = document.querySelector(".user-greeting-text");
+    const content = `🪪 welcome${returningUser? " back" : ""}! your ${returningUser? " cookie stored " : ""}public IP address is ${ip}`;
+    element.classList.remove("fade");
+    setTimeout(() => {
+        requestAnimationFrame(() => {
+            element.innerHTML = content;
+            element.classList.add("fade");
+        });
+    }, 225);
+}
+
+async function refreshGreetingText() {
+    await displayUserInformation(true);
 }
 
 async function getCookie(key) {
@@ -45,7 +55,16 @@ async function getCookie(key) {
 }
 async function setCookie(key, value) {
     if (cookieStore) {
-        await cookieStore.set(key, value);
+        await cookieStore.set({
+            name: key,
+            value: value,
+            expires: new Date(new Date().getTime() + 5*60000) // 5 min default
+          });
+    }
+}
+async function deleteCookie(key) {
+    if (cookieStore) {
+        await cookieStore.delete(key);
     }
 }
 
@@ -65,27 +84,28 @@ async function getIpInformation() {
     }
 }
 
-async function displayUserInformation() {
-    let ip;
-
-    const ipCookie = await getCookie(COOKIE_KEY_NAME_IP);
-    ip = ipCookie?.value;
-
-    const ipInformationJson = await getIpInformation();
-    if (ipInformationJson) {
-        console.log(ipInformationJson);
-        const ipIsDifferent = ipInformationJson.ip != ip;
-        if (ipIsDifferent) {
-            ip = ipInformationJson.ip;
-            console.log('New or updated ip');
-            setCookie(COOKIE_KEY_NAME_IP, ip);
-        }
+async function displayUserInformation(reset = false) {
+    if (reset) {
+        await deleteCookie(COOKIE_KEY_NAME_IP);
     }
 
-    renderIp(ip);
+    const ipCookie = await getCookie(COOKIE_KEY_NAME_IP);
+    if (!ipCookie) {
+        const ipInformationJson = await getIpInformation();
+        if (ipInformationJson) {
+            console.log(ipInformationJson);
+            renderGreetingText(ipInformationJson.ip);
+            setCookie(COOKIE_KEY_NAME_IP, ipInformationJson.ip);
+        }
+        
+    } else {
+        renderGreetingText(ipCookie.value, true);
+    }
+    const buttonElement = document.getElementById("button-refresh");
+    buttonElement.disabled = false;
 }
 
-document.addEventListener("DOMContentLoaded", async function () {
+document.addEventListener("DOMContentLoaded", async () => {
     await displayUserInformation();
     console.log('almartin.ch run');
 })

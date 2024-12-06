@@ -18,55 +18,67 @@
         <script src="script.js"></script>
         <link href="style.css" rel="stylesheet" type="text/css" />
     </head>
-    <body>
-        <h1>almartin.ch - personal website</h1>
-        <h2>welcome</h2>
-        <h3 id="user-ip">🔎 searching you...</h3>
-        <p>
-            <table id="table">
-                <caption>
-                    verses in sixteen characters or less
-                </caption>
-                <tbody>
-                    <tr>
-                        <td>L</td>
-                        <td>I</td>
-                        <td>F</td>
-                        <td>E</td>
-                    </tr>
-                    <tr>
-                        <td>I</td>
-                        <td>S</td>
-                        <td></td>
-                        <td>S</td>
-                    </tr>
-                    <tr>
-                        <td>U</td>
-                        <td>F</td>
-                        <td>F</td>
-                        <td>E</td>
-                    </tr>
-                    <tr>
-                        <td>R</td>
-                        <td>I</td>
-                        <td>N</td>
-                        <td>G</td>
-                    </tr>
-                </tbody>
-            </table>
-            <button id="button" onclick="randomizeVerse()">
-                next verse
-            </button>
-        </p>
-    </body>
-    <footer>
-        <p><a href="https://github.com/almartin1911/almartin.ch">source</a></p>
-        <address>
-            <a href="mailto:amcallejasherrera@gmail.com">amcallejasherrera@gmail.com</a><br />
-            <a href="tg:almartinch">@almartinch</a>
-        </address>
-        <small>
-            <p>copyright © 2024 (ál)varo (martín) (c)allejas (h)errera<br />all rights reserved</p>
-        </small>
-    </footer>
+    <div id="app">
+        <body>
+            <section class="first-section">
+                <h1>almartin.ch - personal website</h3>
+                <h3 class="text fade user-greeting-text">🔎 searching you...</h2>
+                <button id="button-refresh" onclick="refreshGreetingText()" disabled>
+                    refresh
+                </button>
+            </section>
+            
+            <section>
+                <p>
+                    <table id="table">
+                        <caption>
+                            verses in sixteen characters or less
+                        </caption>
+                        <tbody>
+                            <tr>
+                                <td>L</td>
+                                <td>I</td>
+                                <td>F</td>
+                                <td>E</td>
+                            </tr>
+                            <tr>
+                                <td>I</td>
+                                <td>S</td>
+                                <td></td>
+                                <td>S</td>
+                            </tr>
+                            <tr>
+                                <td>U</td>
+                                <td>F</td>
+                                <td>F</td>
+                                <td>E</td>
+                            </tr>
+                            <tr>
+                                <td>R</td>
+                                <td>I</td>
+                                <td>N</td>
+                                <td>G</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <button id="button-verses" onclick="randomizeVerse()">
+                        next verse
+                    </button>
+                </p>
+
+            </section>
+            <section>
+                <footer>
+                    <p><a href="https://github.com/almartin1911/almartin.ch">source code</a></p>
+                    <address>
+                        <a href="mailto:amcallejasherrera@gmail.com">amcallejasherrera@gmail.com</a><br />
+                        <a href="tg:almartinch">@almartinch</a>
+                    </address>
+                    <small>
+                        <p>copyright © 2024 (ál)varo (martín) (c)allejas (h)errera<br />all rights reserved</p>
+                    </small>
+                </footer>
+            </section>
+        </body>
+        </div>
 </html>
