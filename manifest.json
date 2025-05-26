@@ -1,0 +1,41 @@
+{
+"name": "almartin.ch Personal Website",
+"short_name": "almartin.ch",
+"start_url": "/",
+"display": "standalone",
+"description": "Alvaro Martin Callejas Herrera personal website",
+"lang": " en-us",
+"dir": "auto",
+"theme_color": "#000000",
+"background_color": "#000000",
+"orientation": "any",
+"icons": [
+    {
+        "src": "favicon_io/android-chrome-512x512.png",
+        "sizes": "512x512",
+        "type": "image/png",
+        "purpose": "maskable"
+    },
+    {
+        "src": "favicon_io/android-chrome-192x192.png",
+        "sizes": "192x192",
+        "type": "image/png",
+        "purpose": "any"
+    }
+],
+"screenshots": [
+    {
+        "src": "screenshots/screen-light.png",
+        "sizes": "1900x973",
+        "type": "image/png",
+        "description": "A screenshot of the home page"
+    },
+    {
+        "src": "screenshots/screen-dark.png",
+        "sizes": "1901x968",
+        "type": "image/png",
+        "description": "A screenshot of the home page in dark mode"
+    }
+],
+"prefer_related_applications": false
+}

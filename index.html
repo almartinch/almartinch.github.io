@@ -23,9 +23,19 @@
         <link rel="apple-touch-icon" sizes="180x180" href="favicon_io/apple-touch-icon.png">
         <link rel="icon" type="image/png" sizes="32x32" href="favicon_io/favicon-32x32.png">
         <link rel="icon" type="image/png" sizes="16x16" href="favicon_io/favicon-16x16.png">
-        <link rel="manifest" href="favicon_io/site.webmanifest">
+        <!-- PWA -->
+        <link rel="manifest" href="manifest.json" />
     </head>
     <body>
+        <script>
+            if ('serviceWorker' in navigator) {
+                // Register the service worker
+                console.log('Service Worker is supported ✅');
+                navigator.serviceWorker.register("js/service-worker.js")
+            } else {
+                console.log('Service Worker is not supported ❌');
+            }
+        </script> 
         <header class="container">
             <hgroup>
                 <h1>almartin.ch <img src="favicon_io/favicon.ico"></h1>
