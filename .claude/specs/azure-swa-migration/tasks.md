@@ -22,11 +22,12 @@ Cada tarea indica quién la ejecuta (Claude o Martin) y qué requisitos cubre. L
 
 ## Fase 1: cambios en el repo
 
-- [ ] 1.1 Crear `.github/workflows/azure-static-web-apps.yml` según el diseño. _R1.1, R1.2, R1.4, R4.2_
-- [ ] 1.2 Crear `staticwebapp.config.json` con cabeceras, caché y 404. _R5.1, R5.2, R5.3_
-- [ ] 1.3 Crear `404.html` con el estilo del sitio. _R5.3_
-- [ ] 1.4 Crear `api/` con la Function `GET /api/hello` (Node.js, modelo v4). _R4.1_
-- [ ] 1.5 Probar en local con la CLI de Static Web Apps (`npx @azure/static-web-apps-cli start . --api-location api`) — Claude. _R4.1, R5_
+- [x] 1.1 Crear `.github/workflows/azure-static-web-apps.yml` según el diseño. _R1.1, R1.2, R1.4, R4.2_
+- [x] 1.2 Crear `staticwebapp.config.json` con cabeceras, caché y 404. _R5.1, R5.2, R5.3_
+- [x] 1.3 Crear `404.html` con el estilo del sitio. _R5.3_
+- [x] 1.4 Crear `api/` con la Function `GET /api/hello` (Node.js, modelo v4). _R4.1_
+- [x] 1.5 Probar en local con la CLI de Static Web Apps (`npx @azure/static-web-apps-cli start . --api-location api`) — Claude. _R4.1, R5_
+  - Antes de usar el emulador: copiar `api/local.settings.example.json` a `api/local.settings.json` (ignorado).
 - [ ] 1.6 Revisar los cambios en staged y hacer el commit — Martin.
 
 ## Fase 2: recursos en Azure
