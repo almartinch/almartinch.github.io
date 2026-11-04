@@ -15,9 +15,12 @@ Cada tarea indica quién la ejecuta (Claude o Martin) y qué requisitos cubre. L
   dig +short almartin.ch NS
   ```
   Guardar el resultado en `.claude/specs/azure-swa-migration/dns-inventory.md`.
-- [ ] 0.2 Exportar la zona desde GoDaddy y compararla con 0.1 — Martin. _R2.1_
-- [ ] 0.3 Comprobar si DNSSEC está activo en GoDaddy — Martin. _R2.3_
-- [ ] 0.4 Bajar el TTL de los registros A a 600 s, un día antes de la Fase 4 — Martin. _R6_
+- [x] 0.2 Exportar la zona desde GoDaddy y compararla con 0.1 — Martin. _R2.1_
+  - Sustituida por CT + sondeo de nombres comunes; Cloudflare además importa la zona al añadirla en 3.1. Exportar desde GoDaddy queda opcional. Hallazgo: TXT `_github-pages-challenge-almartinch` (ver [dns-inventory.md](./dns-inventory.md)).
+- [x] 0.3 Comprobar si DNSSEC está activo en GoDaddy — Martin. _R2.3_
+  - Sin DS en `.ch` ni DNSKEY en GoDaddy: DNSSEC no está activo. La 3.4 no hace falta.
+- [x] 0.4 Bajar el TTL de los registros A a 600 s, un día antes de la Fase 4 — Martin. _R6_
+  - El TTL ya era 600 s (ver [dns-inventory.md](./dns-inventory.md)); no hubo que cambiarlo.
 - [x] 0.5 Verificar sesiones: `az account show` y `cf zones list` — Claude.
 
 ## Fase 1: cambios en el repo
@@ -48,8 +51,8 @@ Cada tarea indica quién la ejecuta (Claude o Martin) y qué requisitos cubre. L
   ```
 - [x] 2.3 Push de la rama y PR contra `main` — Claude, tras el commit de Martin. _R1.2_
 - [x] 2.4 Verificar en la URL de vista previa del PR: páginas, CSS, tema claro/oscuro, service worker, `/api/hello`, cabeceras y ausencia de errores CSP — Claude. _R1.2, R4, R5_
-- [ ] 2.5 Fusionar el PR en GitHub — Martin. _R1.1_
-- [ ] 2.6 Verificar producción en `https://<defaultHostname>` — Claude. _R1.1_
+- [x] 2.5 Fusionar el PR en GitHub — Martin. _R1.1_
+- [x] 2.6 Verificar producción en `https://<defaultHostname>` — Claude. _R1.1_
 
 ## Fase 3: DNS en Cloudflare
 
