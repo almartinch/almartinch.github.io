@@ -32,21 +32,22 @@ Cada tarea indica quién la ejecuta (Claude o Martin) y qué requisitos cubre. L
 
 ## Fase 2: recursos en Azure
 
-- [ ] 2.1 Crear grupo de recursos y Static Web App — Claude. _R1.3, R1.5_
+- [x] 2.1 Crear grupo de recursos y Static Web App — Claude. _R1.3, R1.5_
   ```bash
   az group create --name rg-almartin --location westeurope
+  az provider register --namespace Microsoft.Web --wait   # solo la primera vez en la suscripción
   az staticwebapp create --name almartin-ch --resource-group rg-almartin \
-    --location westeurope --sku Free
+    --location eastus2 --sku Free   # West Europe no acepta clientes nuevos (D5)
   az staticwebapp show -n almartin-ch -g rg-almartin --query defaultHostname -o tsv
   ```
-- [ ] 2.2 Guardar el token de despliegue como secreto del repo — Claude. _R1.5_
+- [x] 2.2 Guardar el token de despliegue como secreto del repo — Claude. _R1.5_
   ```bash
   az staticwebapp secrets list -n almartin-ch -g rg-almartin \
     --query properties.apiKey -o tsv \
     | gh secret set AZURE_STATIC_WEB_APPS_API_TOKEN -R almartinch/almartinch.github.io
   ```
-- [ ] 2.3 Push de la rama y PR contra `main` — Claude, tras el commit de Martin. _R1.2_
-- [ ] 2.4 Verificar en la URL de vista previa del PR: páginas, CSS, tema claro/oscuro, service worker, `/api/hello`, cabeceras y ausencia de errores CSP — Claude. _R1.2, R4, R5_
+- [x] 2.3 Push de la rama y PR contra `main` — Claude, tras el commit de Martin. _R1.2_
+- [x] 2.4 Verificar en la URL de vista previa del PR: páginas, CSS, tema claro/oscuro, service worker, `/api/hello`, cabeceras y ausencia de errores CSP — Claude. _R1.2, R4, R5_
 - [ ] 2.5 Fusionar el PR en GitHub — Martin. _R1.1_
 - [ ] 2.6 Verificar producción en `https://<defaultHostname>` — Claude. _R1.1_
 

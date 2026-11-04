@@ -5,7 +5,7 @@
 
 ## Resumen
 
-El repo sigue igual en contenido. Se añaden un workflow de GitHub Actions, un `staticwebapp.config.json` y una carpeta `api/`. Azure Static Web Apps (Free, West Europe) sirve el sitio y la API; Cloudflare responde los DNS; GoDaddy solo queda como registrador.
+El repo sigue igual en contenido. Se añaden un workflow de GitHub Actions, un `staticwebapp.config.json` y una carpeta `api/`. Azure Static Web Apps (Free, East US 2) sirve el sitio y la API; Cloudflare responde los DNS; GoDaddy solo queda como registrador.
 
 ## Arquitectura
 
@@ -13,7 +13,7 @@ El repo sigue igual en contenido. Se añaden un workflow de GitHub Actions, un `
 flowchart LR
   V[Visitante] -->|DNS| CF[Cloudflare DNS<br/>DNS only]
   CF -->|CNAME aplanado| SWA[Azure Static Web Apps Free<br/>contenido global]
-  SWA -->|/api/*| FN[Functions gestionadas<br/>West Europe]
+  SWA -->|/api/*| FN[Functions gestionadas<br/>East US 2]
   GH[GitHub repo main] -->|Actions + token| SWA
   GD[GoDaddy registrador] -->|nameservers| CF
 ```
@@ -45,9 +45,9 @@ El dominio raíz se registra en Azure con `dns-txt-token`. El TXT se crea mientr
 
 Los 2 dominios del plan Free se usan para `almartin.ch` y `www.almartin.ch`. El raíz se marca como predeterminado en el portal y Azure redirige `www` hacia él.
 
-### D5. Región West Europe
+### D5. Región East US 2
 
-Es la región de Static Web Apps más cercana a Suiza. Afecta solo a la API y a la gestión; el contenido estático se sirve desde ubicaciones globales.
+West Europe, la región de Static Web Apps más cercana a Suiza, no acepta clientes nuevos (2026-11-04: `RequestDisallowedByAzure`). Se usa East US 2, la más cercana a Europa de las disponibles. Afecta solo a la API y a la gestión: el contenido estático se sirve desde ubicaciones globales. Cada llamada a `/api` suma unos 100 ms desde Suiza. El grupo `rg-almartin` sigue en West Europe (un grupo puede contener recursos de otras regiones). Reconsiderar si West Europe vuelve a aceptar clientes.
 
 ### D6. Cloudflare con la CLI `cf`
 
