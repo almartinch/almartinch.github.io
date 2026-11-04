@@ -54,3 +54,24 @@ crt.sh solo registra certificados para `almartin.ch` y `www.almartin.ch`, desde 
   - El CNAME de `www`.
   - El TXT `_github-pages-challenge-almartinch`.
 - No hay MX, CAA ni DNSSEC que migrar o desactivar.
+
+## Zona en Cloudflare (Fase 3)
+
+- **Creada:** 2026-11-04 con `cf zones create --type full`. Plan Free Website. Estado: `pending` hasta el cambio de nameservers (3.5).
+- **ZONE_ID:** `fbe00e9a0c87f5abceca980e90da049a`
+- **Nameservers asignados** (para poner en GoDaddy en 3.5):
+  - `lila.ns.cloudflare.com`
+  - `thomas.ns.cloudflare.com`
+- **Escaneo de Cloudflare** (`cf dns records scan-trigger`): encontró los 3 A de `@` y el CNAME de `www`, sin nada inesperado. No se aceptó el escaneo: los registros se crearon a mano.
+- **DNSSEC en Cloudflare:** sin activar.
+
+| Nombre | Tipo | Valor | TTL | Proxy | ID |
+| --- | --- | --- | --- | --- | --- |
+| `@` | A | 185.199.108.153 | 600 | DNS only | `b500a8ccba57b467bd81e53862f711c7` |
+| `@` | A | 185.199.109.153 | 600 | DNS only | `53271767bd97295ed9d75a3cb8bf12e8` |
+| `@` | A | 185.199.110.153 | 600 | DNS only | `b9973ae6067180581f3f814d05ba22f7` |
+| `@` | A | 185.199.111.153 | 600 | DNS only | `555ed1e457190bea759e069787424824` |
+| `www` | CNAME | `almartinch.github.io` | 600 | DNS only | `7c13a2cfb54cbb482598df3c26bd7683` |
+| `_github-pages-challenge-almartinch` | TXT | `2c130ac8906fce8de3bee7cac27ae3` | 600 | — | `c1a170cffb193cfec8c80b7c261ba3cd` |
+
+Verificado consultando directamente `lila.ns.cloudflare.com` y `thomas.ns.cloudflare.com`: devuelven los 4 A, el CNAME y el TXT. El TTL del TXT baja de 3600 a 600 s, sin efecto práctico.

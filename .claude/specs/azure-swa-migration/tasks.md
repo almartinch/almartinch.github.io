@@ -56,18 +56,20 @@ Cada tarea indica quién la ejecuta (Claude o Martin) y qué requisitos cubre. L
 
 ## Fase 3: DNS en Cloudflare
 
-- [ ] 3.1 Añadir `almartin.ch` a Cloudflare (plan Free) con `cf` y anotar el `ZONE_ID` y los nameservers asignados — Claude. _R2.1_
+- [x] 3.1 Añadir `almartin.ch` a Cloudflare (plan Free) con `cf` y anotar el `ZONE_ID` y los nameservers asignados — Claude. _R2.1_
   ```bash
   cf cli search "add a zone"     # confirmar el comando exacto (cf está en beta)
   cf zones list
   ```
-- [ ] 3.2 Comparar los registros con el inventario y crear los que falten — Claude. _R2.1_
+- [x] 3.2 Comparar los registros con el inventario y crear los que falten — Claude. _R2.1_
   ```bash
   cf dns records list --zone <ZONE_ID>
   cf dns records create --zone <ZONE_ID> --body '{"type":"A","name":"@","content":"185.199.108.153","proxied":false}' --dry-run
   ```
-- [ ] 3.3 Poner todos los registros en DNS only (`"proxied":false`) — Claude. _R2.4_
-- [ ] 3.4 Desactivar DNSSEC en GoDaddy si está activo — Martin. _R2.3_
+- [x] 3.3 Poner todos los registros en DNS only (`"proxied":false`) — Claude. _R2.4_
+  - Zona `fbe00e9a0c87f5abceca980e90da049a` creada el 2026-11-04 (pendiente de activar); registros y nameservers en [dns-inventory.md](./dns-inventory.md).
+- [x] 3.4 Desactivar DNSSEC en GoDaddy si está activo — Martin. _R2.3_
+  - No necesaria: DNSSEC ya estaba desactivado (ver [dns-inventory.md](./dns-inventory.md)).
 - [ ] 3.5 Cambiar los nameservers en GoDaddy por los de Cloudflare — Martin. _R2.2_
 - [ ] 3.6 Verificar que la zona está Active y que el sitio sigue en GitHub Pages — Claude. _R2.2_
   ```bash
