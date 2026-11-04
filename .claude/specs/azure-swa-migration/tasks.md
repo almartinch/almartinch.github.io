@@ -7,7 +7,7 @@ Cada tarea indica quién la ejecuta (Claude o Martin) y qué requisitos cubre. L
 
 ## Fase 0: preparación
 
-- [ ] 0.1 Inventariar los DNS actuales — Claude, en el equipo de Martin. _R2.1_
+- [x] 0.1 Inventariar los DNS actuales — Claude, en el equipo de Martin. _R2.1_
   ```bash
   dig +short almartin.ch A
   dig +short www.almartin.ch CNAME
@@ -18,7 +18,7 @@ Cada tarea indica quién la ejecuta (Claude o Martin) y qué requisitos cubre. L
 - [ ] 0.2 Exportar la zona desde GoDaddy y compararla con 0.1 — Martin. _R2.1_
 - [ ] 0.3 Comprobar si DNSSEC está activo en GoDaddy — Martin. _R2.3_
 - [ ] 0.4 Bajar el TTL de los registros A a 600 s, un día antes de la Fase 4 — Martin. _R6_
-- [ ] 0.5 Verificar sesiones: `az account show` y `cf zones list` — Claude.
+- [x] 0.5 Verificar sesiones: `az account show` y `cf zones list` — Claude.
 
 ## Fase 1: cambios en el repo
 
