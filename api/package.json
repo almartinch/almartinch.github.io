@@ -1,0 +1,13 @@
+{
+    "name": "almartin-ch-api",
+    "version": "1.0.0",
+    "description": "Serverless API for almartin.ch (Azure Static Web Apps managed functions)",
+    "private": true,
+    "main": "src/functions/*.js",
+    "scripts": {
+        "start": "func start"
+    },
+    "dependencies": {
+        "@azure/functions": "^4.0.0"
+    }
+}

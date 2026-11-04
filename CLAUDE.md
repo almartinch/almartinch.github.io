@@ -48,10 +48,12 @@ python -m http.server 8000
 
 y abrir http://localhost:8000. (El service worker requiere `localhost` o HTTPS.)
 
-## Flujo de trabajo con Claude (sin PRs)
+## Flujo de trabajo con Claude
 
-1. Claude crea una **rama local** para cada cambio (por ejemplo `feature/<tema>`).
+1. Claude crea una **rama** desde `main` para cada cambio, con el tipo de Conventional Commits
+   como prefijo: `feat/<tema>`, `fix/<tema>`, `docs/<tema>`, `chore/<tema>`…
 2. Claude hace los cambios en esa rama y los deja **en stage** (`git add`), sin commitear.
+   Un cambio por commit: si ya hay algo en stage, se espera al commit de Martin antes de preparar otro.
 3. Claude redacta el mensaje de commit en formato
    [Conventional Commits](https://www.conventionalcommits.org) (`feat:`, `fix:`, `docs:`,
    `style:`, `refactor:`, `chore:`…), con el trailer `Co-Authored-By` de Claude al final,
@@ -60,8 +62,19 @@ y abrir http://localhost:8000. (El service worker requiere `localhost` o HTTPS.)
 4. Martin revisa los cambios en stage en **VS Code** (vista Source Control o `git diff --staged`)
    y **Martin hace el commit**. Claude nunca commitea.
 5. Se repiten los pasos 2 a 4 hasta que la rama esté completa.
-6. **Solo con el OK explícito de Martin**, Claude hace merge a `main` y `git push origin main`.
-   Nunca hacer push a `main` sin ese OK, porque publica en producción.
-7. Después del merge se puede borrar la rama local.
+6. Tras el commit de Martin, Claude hace push de la rama (`git push -u origin <rama>`) y abre
+   un **pull request contra `main`** con `gh pr create`, asignado a Martin y con él como revisor.
+   Los commits nuevos en la rama se suben al mismo PR.
+7. El PR genera un **entorno de vista previa** en Azure Static Web Apps con URL propia.
+   Claude lo verifica (páginas, consola, cabeceras, `/api`) y Martin lo revisa.
+8. **Martin fusiona el PR** en GitHub. Eso publica en producción.
+   Nadie hace push directo a `main`.
+9. Al cerrar o fusionar el PR, Azure borra la vista previa. Después se borran la rama local y la remota.
 
-No crear pull requests salvo que Martin lo pida.
+Vistas previas de Azure Static Web Apps (plan Free):
+
+- Máximo **3 vistas previas simultáneas**: con 3 PRs abiertos, el despliegue de un cuarto falla
+  hasta cerrar alguno.
+- Son públicas para quien tenga la URL.
+- Hasta que exista el workflow de Azure (ver `.claude/specs/azure-swa-migration/`), los PRs no
+  tienen vista previa y se prueba en local.

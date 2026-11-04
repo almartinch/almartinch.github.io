@@ -1,0 +1,55 @@
+{
+    "routes": [
+        {
+            "route": "/.claude/*",
+            "statusCode": 404
+        },
+        {
+            "route": "/.github/*",
+            "statusCode": 404
+        },
+        {
+            "route": "/CLAUDE.md",
+            "statusCode": 404
+        },
+        {
+            "route": "/js/service-worker.js",
+            "headers": {
+                "Cache-Control": "no-cache"
+            }
+        },
+        {
+            "route": "/manifest.json",
+            "headers": {
+                "Cache-Control": "no-cache"
+            }
+        },
+        {
+            "route": "/css/*",
+            "headers": {
+                "Cache-Control": "public, max-age=604800"
+            }
+        },
+        {
+            "route": "/favicon_io/*",
+            "headers": {
+                "Cache-Control": "public, max-age=604800"
+            }
+        }
+    ],
+    "responseOverrides": {
+        "404": {
+            "rewrite": "/404.html",
+            "statusCode": 404
+        }
+    },
+    "globalHeaders": {
+        "Content-Security-Policy": "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com; connect-src 'self' https://ipinfo.io https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com; img-src 'self' data: https://*.google-analytics.com https://*.googletagmanager.com; style-src 'self'; font-src 'self'; manifest-src 'self'; worker-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'",
+        "Strict-Transport-Security": "max-age=31536000",
+        "X-Content-Type-Options": "nosniff",
+        "Referrer-Policy": "strict-origin-when-cross-origin"
+    },
+    "platform": {
+        "apiRuntime": "node:22"
+    }
+}
