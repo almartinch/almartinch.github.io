@@ -4,10 +4,19 @@ on:
   push:
     branches:
       - main
+    # Docs-only changes don't touch the site: skip the deploy
+    paths-ignore:
+      - ".claude/**"
+      - "README.md"
+      - "CLAUDE.md"
   pull_request:
     types: [opened, synchronize, reopened, closed]
     branches:
       - main
+    paths-ignore:
+      - ".claude/**"
+      - "README.md"
+      - "CLAUDE.md"
 
 permissions:
   contents: read
