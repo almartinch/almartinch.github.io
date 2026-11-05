@@ -75,3 +75,22 @@ crt.sh solo registra certificados para `almartin.ch` y `www.almartin.ch`, desde 
 | `_github-pages-challenge-almartinch` | TXT | `2c130ac8906fce8de3bee7cac27ae3` | 600 | — | `c1a170cffb193cfec8c80b7c261ba3cd` |
 
 Verificado consultando directamente `lila.ns.cloudflare.com` y `thomas.ns.cloudflare.com`: devuelven los 4 A, el CNAME y el TXT. El TTL del TXT baja de 3600 a 600 s, sin efecto práctico.
+
+## Corte a Azure (Fase 4, 2026-11-05)
+
+| Nombre | Tipo | Valor | TTL | Proxy | ID |
+| --- | --- | --- | --- | --- | --- |
+| `@` | CNAME | `gray-bush-0796f280f.3.azurestaticapps.net` (aplanado) | 600 | DNS only | `b6cc5bb977700ede0ec67b4bfebac35a` |
+| `@` | TXT | `_inx1s8cbg8hjose27tunr2niw2nf5pm` (validación de Azure) | 600 | — | `b41a2a819c167e4ba798a2a6afc21674` |
+| `www` | CNAME | `gray-bush-0796f280f.3.azurestaticapps.net` | 600 | DNS only | `7c13a2cfb54cbb482598df3c26bd7683` |
+| `_github-pages-challenge-almartinch` | TXT | `2c130ac8906fce8de3bee7cac27ae3` | 600 | — | `c1a170cffb193cfec8c80b7c261ba3cd` |
+
+Borrados en el corte: los 4 A de GitHub Pages en `@` (185.199.108.153, .109.153, .110.153, .111.153).
+
+### Vuelta atrás
+
+1. Borrar el CNAME de `@` (`cf dns records delete b6cc5bb977700ede0ec67b4bfebac35a --zone fbe00e9a0c87f5abceca980e90da049a --force`).
+2. Crear de nuevo los 4 A de GitHub Pages en `@`, DNS only, TTL 600.
+3. Si hace falta, volver a poner `www` → `almartinch.github.io` (`cf dns records edit 7c13a2cfb54cbb482598df3c26bd7683 ...`).
+
+GitHub Pages sigue activo hasta la tarea 5.2, así que la vuelta atrás funciona sin más cambios.

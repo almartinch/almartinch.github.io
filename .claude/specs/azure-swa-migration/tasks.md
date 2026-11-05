@@ -81,28 +81,33 @@ Cada tarea indica quién la ejecuta (Claude o Martin) y qué requisitos cubre. L
 
 ## Fase 4: dominio propio
 
-- [ ] 4.1 Registrar el dominio raíz en Azure con validación TXT — Claude. _R3.3_
+- [x] 4.1 Registrar el dominio raíz en Azure con validación TXT — Claude. _R3.3_
   ```bash
   az staticwebapp hostname set -n almartin-ch -g rg-almartin \
     --hostname almartin.ch --validation-method dns-txt-token --no-wait
   az staticwebapp hostname show -n almartin-ch -g rg-almartin \
     --hostname almartin.ch --query validationToken -o tsv
   ```
-- [ ] 4.2 Crear el TXT en `@` en Cloudflare con el token — Claude. _R3.3_
+- [x] 4.2 Crear el TXT en `@` en Cloudflare con el token — Claude. _R3.3_
+  - El TXT va en `@`, no en `_dnsauth` (documentación de Static Web Apps para dominios raíz). Valor `_inx1s8cbg8hjose27tunr2niw2nf5pm`.
   ```bash
   cf dns records create --zone <ZONE_ID> --body '{"type":"TXT","name":"@","content":"<TOKEN>"}'
   ```
-- [ ] 4.3 Esperar a estado Ready (`az staticwebapp hostname list -n almartin-ch -g rg-almartin`) — Claude. _R3.1_
-- [ ] 4.4 Sustituir los 4 A de GitHub Pages por `CNAME @ → <defaultHostname>` (DNS only) — Claude, con OK de Martin. _R3.1_
+- [x] 4.3 Esperar a estado Ready (`az staticwebapp hostname list -n almartin-ch -g rg-almartin`) — Claude. _R3.1_
+  - Ready el 2026-11-05 (unos 10 min). Certificado de Azure `CN=almartin.ch`, válido hasta 2027-05-05.
+- [x] 4.4 Sustituir los 4 A de GitHub Pages por `CNAME @ → <defaultHostname>` (DNS only) — Claude, con OK de Martin. _R3.1_
+  - Corte el 2026-11-05 a las 03:51 UTC con `cf dns records delete <id> --force` (×4) y `cf dns records create` del CNAME. Cloudflare aplana el CNAME a la IP de Azure. HTTPS válido desde el primer momento. Vuelta atrás en [dns-inventory.md](./dns-inventory.md).
   ```bash
   cf dns records delete <RECORD_ID>   # x4, uno por cada A de GitHub Pages
   cf dns records create --zone <ZONE_ID> --body '{"type":"CNAME","name":"@","content":"<defaultHostname>","proxied":false}'
   ```
-- [ ] 4.5 Crear `CNAME www → <defaultHostname>` y registrarlo en Azure — Claude. _R3.2_
+- [x] 4.5 Crear `CNAME www → <defaultHostname>` y registrarlo en Azure — Claude. _R3.2_
+  - `cf dns records edit` del CNAME de `www` y `az staticwebapp hostname set`. Ready el 2026-11-05.
   ```bash
   az staticwebapp hostname set -n almartin-ch -g rg-almartin --hostname www.almartin.ch
   ```
 - [ ] 4.6 Marcar `almartin.ch` como dominio predeterminado en el portal — Martin. _R3.2_
+  - `az staticwebapp hostname` no tiene opción para el dominio predeterminado: queda para el portal (Static Web App `almartin-ch` → Custom domains → almartin.ch → Set default). Hasta entonces `www.almartin.ch` sirve el sitio con 200 en vez de redirigir (R3.2 pendiente).
 
 ## Fase 5: verificación y cierre
 
