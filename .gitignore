@@ -2,3 +2,5 @@
 node_modules/
 # Azure Functions local settings (may hold secrets); copy from api/local.settings.example.json
 api/local.settings.json
+# Claude Code local settings (per-machine permissions)
+.claude/settings.local.json
