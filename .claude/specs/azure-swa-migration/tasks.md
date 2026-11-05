@@ -70,8 +70,10 @@ Cada tarea indica quién la ejecuta (Claude o Martin) y qué requisitos cubre. L
   - Zona `fbe00e9a0c87f5abceca980e90da049a` creada el 2026-11-04 (pendiente de activar); registros y nameservers en [dns-inventory.md](./dns-inventory.md).
 - [x] 3.4 Desactivar DNSSEC en GoDaddy si está activo — Martin. _R2.3_
   - No necesaria: DNSSEC ya estaba desactivado (ver [dns-inventory.md](./dns-inventory.md)).
-- [ ] 3.5 Cambiar los nameservers en GoDaddy por los de Cloudflare — Martin. _R2.2_
-- [ ] 3.6 Verificar que la zona está Active y que el sitio sigue en GitHub Pages — Claude. _R2.2_
+- [x] 3.5 Cambiar los nameservers en GoDaddy por los de Cloudflare — Martin. _R2.2_
+  - Hecho el 2026-11-04 con `gddy domain nameserver set --nameserver lila.ns.cloudflare.com --nameserver thomas.ns.cloudflare.com almartin.ch` (operación `45145561-2b9f-4c2f-92c0-fe4a21ff7382`, COMPLETED). `.ch` delegó en Cloudflare a los ~10 min.
+- [x] 3.6 Verificar que la zona está Active y que el sitio sigue en GitHub Pages — Claude. _R2.2_
+  - Zona Active desde 2026-11-04T18:39:53Z. almartin.ch sigue respondiendo 200 desde GitHub Pages y `www` redirige a almartin.ch.
   ```bash
   dig +short almartin.ch NS
   dig +short almartin.ch A
