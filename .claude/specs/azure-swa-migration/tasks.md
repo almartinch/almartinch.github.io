@@ -106,8 +106,8 @@ Cada tarea indica quién la ejecuta (Claude o Martin) y qué requisitos cubre. L
   ```bash
   az staticwebapp hostname set -n almartin-ch -g rg-almartin --hostname www.almartin.ch
   ```
-- [ ] 4.6 Marcar `almartin.ch` como dominio predeterminado en el portal — Martin. _R3.2_
-  - `az staticwebapp hostname` no tiene opción para el dominio predeterminado: queda para el portal (Static Web App `almartin-ch` → Custom domains → almartin.ch → Set default). Hasta entonces `www.almartin.ch` sirve el sitio con 200 en vez de redirigir (R3.2 pendiente).
+- [x] 4.6 Marcar `almartin.ch` como dominio predeterminado en el portal — Martin. _R3.2_
+  - Hecho por Martin en el portal el 2026-11-05 (`az` no tiene opción para esto). `www.almartin.ch` y `gray-bush-0796f280f.3.azurestaticapps.net` redirigen con 301 a `https://almartin.ch/`, conservando ruta y query.
 
 ## Fase 5: verificación y cierre
 
