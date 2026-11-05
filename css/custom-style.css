@@ -8,10 +8,9 @@
     transition: opacity 300ms cubic-bezier(0.55, 0.085, 0.68, 0.53);
 }
 
-a[href^='mailto']::before {
-    content: '📧 ';
-}
-
-a[href^='tg']::before {
-    content: '📞 ';
+.contact-icon {
+    width: 1em;
+    height: 1em;
+    vertical-align: -0.125em;
+    margin-right: 0.25em;
 }

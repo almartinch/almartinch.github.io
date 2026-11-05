@@ -111,7 +111,18 @@ async function displayUserInformation(reset = false) {
     buttonElement.disabled = false;
 }
 
+// Footer
+const COPYRIGHT_START_YEAR = 2024;
+function renderCopyrightYears() {
+    const element = document.querySelector(".copyright-years");
+    const currentYear = new Date().getFullYear();
+    element.textContent = currentYear > COPYRIGHT_START_YEAR
+        ? `${COPYRIGHT_START_YEAR}–${currentYear}`
+        : `${COPYRIGHT_START_YEAR}`;
+}
+
 document.addEventListener("DOMContentLoaded", async () => {
+    renderCopyrightYears();
     await displayUserInformation();
     console.log('almartin.ch run ✅');
 })
